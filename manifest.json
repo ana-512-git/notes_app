@@ -1,0 +1,21 @@
+{
+  "name": "ChronoNote",
+  "short_name": "ChronoNote",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "description": "Schedule-first note taking.",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192.png?text=Note",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512.png?text=Note",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

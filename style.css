@@ -3,6 +3,6 @@ html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
         /* 2. The touch-action: none is the ONLY way to stop the tablet from 'scrolling' */
         #noteCanvas {
             display: block;
-            background: #ffffff;
+            background: red;
             touch-action: none; 
         }

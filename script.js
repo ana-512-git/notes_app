@@ -1,48 +1,41 @@
 const canvas = document.getElementById('noteCanvas');
+        // 'alpha: false' is the secret for older tablets like the S6 Lite.
+        // It saves massive amounts of GPU memory.
+        const ctx = canvas.getContext('2d', { alpha: false });
 
-// FIX 1: Remove 'desynchronized'. It is causing the black screen.
-const ctx = canvas.getContext('2d');
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            // Fill white immediately so the GPU doesn't show black
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.strokeStyle = "#000000";
+            ctx.lineWidth = 3;
+            ctx.lineCap = "round";
+        }
 
-function resize() {
-    // FIX 2: Handle High-DPI (Retina) screens properly to prevent GPU lag
-    const ratio = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * ratio;
-    canvas.height = window.innerHeight * ratio;
-    ctx.scale(ratio, ratio);
-    
-    // Reset styles after resizing
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.strokeStyle = '#000';
-}
+        let drawing = false;
 
-window.addEventListener('resize', resize);
-resize();
+        // Start
+        canvas.addEventListener('pointerdown', (e) => {
+            drawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.clientX, e.clientY);
+        });
 
-let isDrawing = false;
+        // Draw
+        canvas.addEventListener('pointermove', (e) => {
+            if (!drawing) return;
+            ctx.lineTo(e.clientX, e.clientY);
+            ctx.stroke();
+        });
 
-canvas.addEventListener('pointerdown', (e) => {
-    isDrawing = true;
-    ctx.beginPath();
-    ctx.moveTo(e.clientX, e.clientY);
-});
+        // Stop
+        canvas.addEventListener('pointerup', () => {
+            drawing = false;
+        });
 
-canvas.addEventListener('pointermove', (e) => {
-    if (!isDrawing) return;
-
-    // Use pressure if available
-    ctx.lineWidth = e.pressure > 0 ? e.pressure * 8 : 3;
-
-    ctx.lineTo(e.clientX, e.clientY);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.moveTo(e.clientX, e.clientY);
-    
-    // FIX 3: Force the browser to 'paint' the stroke immediately
-    window.requestAnimationFrame(() => {});
-});
-
-canvas.addEventListener('pointerup', () => {
-    isDrawing = false;
-});
+        window.addEventListener('resize', init);
+        init();

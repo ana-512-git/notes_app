@@ -1,22 +1,8 @@
-#noteCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #ffffff !important; /* Force the canvas white */
-    touch-action: none; /* Stops the tablet from scrolling while you draw */
-    
-    /* These force the GPU to keep the layer visible */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-}
-
-body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden; /* Prevents "bounce" scrolling on tablets */
-            background-color: #ffffff;
+html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #fff; }
+        
+        /* 2. The touch-action: none is the ONLY way to stop the tablet from 'scrolling' */
+        #noteCanvas {
+            display: block;
+            background: #ffffff;
+            touch-action: none; 
         }

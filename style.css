@@ -4,8 +4,12 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    touch-action: none; /* CRITICAL: Stops the browser from scrolling while you draw */
-    background-color: #fff;
+    background-color: #ffffff !important; /* Force the canvas white */
+    touch-action: none; /* Stops the tablet from scrolling while you draw */
+    
+    /* These force the GPU to keep the layer visible */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
 }
 
 body, html {
